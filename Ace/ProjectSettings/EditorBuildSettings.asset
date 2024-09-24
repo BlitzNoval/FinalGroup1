@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Intermediate.unity
     guid: 64e106aa01ddeb64dba7a4d4f68e55cc
   - enabled: 1
-    path: Assets/Scenes/Hardcore.unity
+    path: Assets/Scenes/Prototype.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/Tutorial.unity
