@@ -8321,7 +8321,7 @@ MonoBehaviour:
   wallrunSpeed: 30
   speedIncreaseMultiplier: 153.12
   slopeIncreaseMultiplier: 1
-  groundDrag: 5
+  groundDrag: 9
   jumpForce: 13
   jumpCooldown: 0.25
   airMultiplier: 0.5
