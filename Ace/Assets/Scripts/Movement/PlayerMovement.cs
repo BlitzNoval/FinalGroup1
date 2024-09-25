@@ -45,9 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
-    [Header("Camera")]
-    public PlayerCam cam;
-
     public Transform orientation;
 
     float horizontalInput;
@@ -143,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void StateHandler()
-
     {
         // Mode - Wallrunning
         if (wallrunning)
@@ -258,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
         // turn gravity off while on slope
-        if(!wallrunning) rb.useGravity = !OnSlope();
+        if (!wallrunning) rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
@@ -299,11 +295,6 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         exitingSlope = false;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Handle additional collision logic if needed
     }
 
     public bool OnSlope()

@@ -3,17 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Ground
+  - Bullet
+  - Ledge
+  - Trigger
+  - FinishTrigger
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - WhatIsGround
-  - WhatIsWall
-  - 
+  - Player
+  - Ground
+  - Wall
   - 
   - 
   - 
