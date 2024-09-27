@@ -8315,10 +8315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4bb29a60274e944aa88c187b14c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 26
-  sprintSpeed: 30
+  walkSpeed: 18
+  sprintSpeed: 25
   slideSpeed: 30
-  wallrunSpeed: 30
+  wallrunSpeed: 40
   speedIncreaseMultiplier: 153.12
   slopeIncreaseMultiplier: 1
   groundDrag: 9
