@@ -6344,12 +6344,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1614082183}
-  - component: {fileID: 1614082188}
   - component: {fileID: 1614082187}
   - component: {fileID: 1614082186}
   - component: {fileID: 1614082185}
-  - component: {fileID: 1614082184}
   - component: {fileID: 1614082189}
+  - component: {fileID: 1614082184}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6494,26 +6493,6 @@ MonoBehaviour:
   freeze: 0
   text_speed: {fileID: 0}
   text_mode: {fileID: 0}
---- !u!114 &1614082188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614082182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f97601cc00e4c946996b7a88d3e7d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Dash
-  dashLength: 1
-  dashSpeed: 30
-  maxUses: 3
-  cooldownTime: 1
-  dashEffect: {fileID: 0}
-  dashSound: {fileID: 0}
-  abilityText: {fileID: 0}
 --- !u!114 &1614082189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6526,7 +6505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c67458f1272d14a834624f96ec9773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumps: 1
+  maxJumps: 3
   doubleJumpForce: 13
 --- !u!1 &1621112973
 GameObject:

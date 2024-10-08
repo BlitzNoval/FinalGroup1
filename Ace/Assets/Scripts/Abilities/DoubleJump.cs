@@ -19,10 +19,10 @@ public class DoubleJump : MonoBehaviour
 
     void Update()
     {
-        // Check if the jump key is pressed and player is not grounded
-        if (Input.GetKeyDown(playerMovement.jumpKey) && !playerMovement.grounded && jumpCount < maxJumps)
+        // Check if the jump key is pressed, player is not grounded, and the player is not wallrunning
+        if (Input.GetKeyDown(playerMovement.jumpKey) && !playerMovement.grounded && jumpCount < maxJumps && !playerMovement.wallrunning)
         {
-            PerformJump();  // Perform the double jump
+            PerformJump();  // Perform the jump
             jumpCount++;    // Increment the jump count
         }
 
