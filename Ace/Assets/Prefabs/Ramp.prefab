@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2233540260006915989}
   - component: {fileID: 6830841196018381958}
   m_Layer: 7
-  m_Name: Spawn
+  m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
