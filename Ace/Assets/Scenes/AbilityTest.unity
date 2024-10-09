@@ -11814,6 +11814,7 @@ GameObject:
   - component: {fileID: 1614082187}
   - component: {fileID: 1614082186}
   - component: {fileID: 1614082185}
+  - component: {fileID: 1614082190}
   - component: {fileID: 1614082189}
   - component: {fileID: 1614082184}
   m_Layer: 0
@@ -11972,9 +11973,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c67458f1272d14a834624f96ec9773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumps: 2
+  maxJumps: 1
   doubleJumpForce: 13
---- !u!1 &1617681030
+--- !u!114 &1614082190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614082182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cda18fd3556c904aa8530d9738557f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 10
+  dashSpeed: 200
+  dashCooldown: 1
+  dashKey: 304
+--- !u!1 &1621112973
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
