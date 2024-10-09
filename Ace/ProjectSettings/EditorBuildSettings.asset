@@ -33,6 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Hard.unity
     guid: 563482a8446ca8b48bc80ac4c1550b2f
   - enabled: 0
-    path: Assets/Scenes/Level 1.unity
+    path: Assets/Scenes/Ngcweti Levels/Level 1.unity
     guid: 85925d13125525f47af2ea64f4217fbd
   m_configObjects: {}
