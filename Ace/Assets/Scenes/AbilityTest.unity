@@ -6350,6 +6350,7 @@ GameObject:
   - component: {fileID: 1614082190}
   - component: {fileID: 1614082189}
   - component: {fileID: 1614082184}
+  - component: {fileID: 1614082191}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6524,6 +6525,18 @@ MonoBehaviour:
   dashSpeed: 200
   dashCooldown: 1
   dashKey: 304
+--- !u!114 &1614082191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614082182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fa98bad41b6c144a2b34f218b0fdee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1621112973
 GameObject:
   m_ObjectHideFlags: 0
@@ -7129,6 +7142,7 @@ GameObject:
   - component: {fileID: 1830985753}
   - component: {fileID: 1830985752}
   - component: {fileID: 1830985751}
+  - component: {fileID: 1830985754}
   m_Layer: 6
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -7226,6 +7240,27 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!65 &1830985754
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830985749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1910392299
 GameObject:
   m_ObjectHideFlags: 0
