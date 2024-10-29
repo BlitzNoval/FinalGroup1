@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class TimeSlow : MonoBehaviour
 {
-    public float baseSpeed = 5.0f;             // Base movement speed of the player
-    public float worldSlowTimeScale = 0.4f;    // Speed at which the world slows down
-    public float playerTimeScale = 0.8f;       // Speed at which the player's time scale slows down
-    public float normalTimeScale = 1.0f;       // Normal time scale for both world and player
-    public float slowDuration = 3.0f;          // Duration of slow motion in seconds
+    public float slowTimeScale = 0.5f;      // scale for slowing down time 
+    public float normalTimeScale = 1.0f;    // the normal time scale
+    public float slowDuration = 2.0f;        
+    public float playerMultiply = 0.5f;
 
-    private float slowTimeRemaining;
+    private float slowTimeRemaining;          
+    private PlayerMovement playerMovement;    
 
-    void Update()
+    private bool isSlowMotionActive = false;  
+
+    private void Start()
     {
-        // Activate slow motion when pressing 'F'
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        if (playerMovement == null)
+        {
+            Debug.LogError("PlayerMovement script not found in the scene!");
+        }
+    }
+
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F))
         {
             StartSlowMotion();
         }
 
-        // Handle slow motion duration
         if (slowTimeRemaining > 0)
         {
             slowTimeRemaining -= Time.unscaledDeltaTime;
@@ -29,41 +38,37 @@ public class TimeSlow : MonoBehaviour
                 RestoreNormalTime();
             }
         }
-
-        // Handle player movement with custom time scale
-        HandlePlayerMovement();
     }
 
-    // Start slow motion for both world and player
     public void StartSlowMotion()
     {
-        // Slow down the world using timeScale
-        Time.timeScale = worldSlowTimeScale;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale; // Adjust physics time step for world
+        if (isSlowMotionActive) return;
 
-        // Set slow motion duration
+        isSlowMotionActive = true;
+        Time.timeScale = slowTimeScale;
         slowTimeRemaining = slowDuration;
+
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        if (playerMovement != null)
+        {
+            // apply a time multiplier to control player speed during slow motion
+            playerMovement.ApplyTimeMultiplier(1 / playerMultiply);  // this determines the player's speed based in the slow time period
+        }
     }
 
-    // Restore normal time for both world and player
     public void RestoreNormalTime()
     {
-        // Restore world time scale
+        if (!isSlowMotionActive) return;
+
+        isSlowMotionActive = false;
         Time.timeScale = normalTimeScale;
-        Time.fixedDeltaTime = 0.02f;  // Restore default physics time step
-    }
+        Time.fixedDeltaTime = 0.02f;
 
-    // Handle player movement with independent time scale
-    private void HandlePlayerMovement()
-    {
-        // Get input for movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        if (playerMovement != null)
+        {
 
-        // Calculate movement direction using a custom delta time for the player
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical) * baseSpeed * (Time.unscaledDeltaTime * playerTimeScale);
-
-        // Move the player
-        transform.Translate(movement);
+            playerMovement.ApplyTimeMultiplier(1.0f);  // resets the player back to normal
+        }
     }
 }

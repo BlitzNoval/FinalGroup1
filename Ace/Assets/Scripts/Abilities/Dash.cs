@@ -4,26 +4,39 @@ using UnityEngine;
 
 public class Dash : MonoBehaviour
 {
-    public float dashDistance = 100f; 
-    public float dashSpeed = 50f; 
-    public float dashCooldown = 1f; 
-    private bool readyToDash = true; // Check if the dash is ready
+    [SerializeField] private float dashDistance = 100f;
+    [SerializeField] private float dashSpeed = 50f;
+    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private int maxDashCount = 3; // the number of maximum dashes
+    [SerializeField] private float dashRechargeTime = 5f; // time to fully recharge dashes
 
-    public KeyCode dashKey = KeyCode.LeftShift; 
+    private bool readyToDash = true; //  checks if the dash is ready
+    private int currentDashCount; // check on the amount of dashes available
 
-    private PlayerMovement playerMovement; 
+    public KeyCode dashKey = KeyCode.LeftShift;
+
+    private PlayerMovement playerMovement;
     private Camera mainCamera;
+    private Rigidbody rb;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        mainCamera = Camera.main; 
+        mainCamera = Camera.main;
+        rb = GetComponent<Rigidbody>();
+
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody component missing from this GameObject");
+        }
+
+        currentDashCount = maxDashCount; 
     }
 
     private void Update()
     {
-        // Check if dash is ready, not wallrunning, and dash key is pressed
-        if (readyToDash && !playerMovement.wallrunning && Input.GetKeyDown(dashKey))
+        // Check if dash is ready, dashes are available, not wallrunning, and dash key is pressed
+        if (readyToDash && currentDashCount > 0 && !playerMovement.wallrunning && Input.GetKeyDown(dashKey))
         {
             StartCoroutine(PerformDash());
         }
@@ -31,20 +44,31 @@ public class Dash : MonoBehaviour
 
     private IEnumerator PerformDash()
     {
-        readyToDash = false; // Set dash to not ready
+        readyToDash = false; //dash is set to being not ready
+        currentDashCount--; // decrease the count for the dash
 
-        // Get the camera's forward direction and perform the dash
-        Vector3 dashDirection = mainCamera.transform.forward; // Dash in the direction the camera is facing
-        dashDirection.y = 0; // Keep the dash direction horizontal
-        dashDirection.Normalize(); // Normalize the direction vector
+        
+        Vector3 dashDirection = mainCamera.transform.forward;
+        dashDirection.y = 0; // keeping the direction of the dash horizontal
+        dashDirection.Normalize();
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse); // Use dashSpeed for the force applied
+        rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse);
 
-        // Wait for the dash cooldown
+        
         yield return new WaitForSeconds(dashCooldown);
-        readyToDash = true; // Reset dash readiness
+        readyToDash = true; // reset the dash 
+
+        
+        if (currentDashCount <= 0)
+        {
+            StartCoroutine(RechargeDashes());
+        }
+    }
+
+    private IEnumerator RechargeDashes()
+    {
+        yield return new WaitForSeconds(dashRechargeTime);
+        currentDashCount = maxDashCount; // reset the dash count to max
     }
 }
-
 

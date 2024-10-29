@@ -61,7 +61,7 @@ public class CheckpointAndResetSystem : MonoBehaviour
         return currentCheckpoint != null;
     }
 
-    private void ResetOrRespawnPlayer()
+    public void ResetOrRespawnPlayer()
     {
         if (HasCheckpoint())
         {
