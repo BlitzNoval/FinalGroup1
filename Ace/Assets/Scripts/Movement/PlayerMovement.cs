@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    private float moveSpeed;
+    public float moveSpeed;
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
     public float walkSpeed;
@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     public float slopeIncreaseMultiplier;
 
     public float groundDrag;
+
+    private float playerTimeMultiplier; 
 
     [Header("Jumping")]
     public float jumpForce;
@@ -82,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
 
         startYScale = transform.localScale.y;
+
+        // playerTimeMultiplier starts at 1.0
+        playerTimeMultiplier = 1.0f;
     }
 
     private void Update()
@@ -141,64 +146,45 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        // Mode - Wallrunning
+        // Determine movement state and desired speed based on input and conditions
         if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
         }
-
-        // Mode - Sliding
         else if (sliding)
         {
             state = MovementState.sliding;
-
-            // increase speed by one every second
-            if (OnSlope() && rb.velocity.y < 0.1f)
-                desiredMoveSpeed = slideSpeed;
-
-            else
-                desiredMoveSpeed = sprintSpeed;
+            desiredMoveSpeed = OnSlope() && rb.velocity.y < 0.1f ? slideSpeed : sprintSpeed;
         }
-
-        // Mode - Crouching
         else if (crouching)
         {
             state = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
         }
-
-        // Mode - Sprinting
         else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
         }
-
-        // Mode - Walking
         else if (grounded)
         {
             state = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
         }
-
-        // Mode - Air
         else
         {
             state = MovementState.air;
         }
 
-        // check if desired move speed has changed drastically
+        // Apply time multiplier to the desired move speed
+        moveSpeed = desiredMoveSpeed * playerTimeMultiplier;
+
+        // Smooth speed transition when speed changes drastically
         if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SmoothlyLerpMoveSpeed());
-
-            print("Lerp Started!");
-        }
-        else
-        {
-            moveSpeed = desiredMoveSpeed;
         }
 
         lastDesiredMoveSpeed = desiredMoveSpeed;
@@ -206,37 +192,24 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator SmoothlyLerpMoveSpeed()
     {
-        // smoothly lerp movementSpeed to desired value
         float time = 0;
         float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
         float startValue = moveSpeed;
 
         while (time < difference)
         {
-            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
-
-            if (OnSlope())
-            {
-                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
-
-                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease;
-            }
-            else
-                time += Time.deltaTime * speedIncreaseMultiplier;
-
+            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed * playerTimeMultiplier, time / difference);
+            time += Time.deltaTime * speedIncreaseMultiplier;
             yield return null;
         }
 
-        moveSpeed = desiredMoveSpeed;
+        moveSpeed = desiredMoveSpeed * playerTimeMultiplier;
     }
 
     private void MovePlayer()
     {
-        // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        // on slope
         if (OnSlope() && !exitingSlope)
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
@@ -244,34 +217,25 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
-
-        // on ground
         else if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // in air
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
 
-        // turn gravity off while on slope
         if (!wallrunning) rb.useGravity = !OnSlope();
     }
 
     private void SpeedControl()
     {
-        // limiting speed on slope
         if (OnSlope() && !exitingSlope)
         {
             if (rb.velocity.magnitude > moveSpeed)
                 rb.velocity = rb.velocity.normalized * moveSpeed;
         }
-
-        // limiting speed on ground or in air
         else
         {
             Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-            // limit velocity if needed
             if (flatVel.magnitude > moveSpeed)
             {
                 Vector3 limitedVel = flatVel.normalized * moveSpeed;
@@ -283,17 +247,13 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         exitingSlope = true;
-
-        // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     private void ResetJump()
     {
         readyToJump = true;
-
         exitingSlope = false;
     }
 
@@ -304,7 +264,6 @@ public class PlayerMovement : MonoBehaviour
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
         }
-
         return false;
     }
 
@@ -319,7 +278,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (OnSlope())
             text_speed.SetText("Speed: " + Round(rb.velocity.magnitude, 1));
-
         else
             text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1));
 
@@ -330,5 +288,10 @@ public class PlayerMovement : MonoBehaviour
     {
         float mult = Mathf.Pow(10.0f, (float)digits);
         return Mathf.Round(value * mult) / mult;
+    }
+
+    public void ApplyTimeMultiplier(float multiplier)
+    {
+        playerTimeMultiplier = multiplier; // Apply the multiplier
     }
 }
