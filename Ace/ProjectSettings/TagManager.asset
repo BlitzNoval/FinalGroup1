@@ -10,6 +10,7 @@ TagManager:
   - Ledge
   - Trigger
   - FinishTrigger
+  - FinishBlock
   layers:
   - Default
   - TransparentFX

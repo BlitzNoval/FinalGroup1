@@ -5,13 +5,37 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Prototype.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/ChaptersScene.unity
-    guid: 2581ac9551553154ebec9e26478bd9be
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
-    guid: d3797aabba3b52e49baff1ecd761069f
+    guid: a9010a26523f91348b2c7bc62ffa4c6c
+  - enabled: 0
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 287093ab924cb804ba14b509f9dc41d9
+  - enabled: 0
+    path: Assets/Scenes/Tutoiral.unity
+    guid: 2f11278ec739d7941bb04293d266d4b9
+  - enabled: 0
+    path: Assets/Scenes/Beginner.unity
+    guid: 5824727daf1618448a7e94573935445e
+  - enabled: 0
+    path: Assets/Scenes/Easy.unity
+    guid: 68faf844648bb1e4893fd913d951fb0c
+  - enabled: 0
+    path: Assets/Scenes/Intermediate.unity
+    guid: 64e106aa01ddeb64dba7a4d4f68e55cc
+  - enabled: 0
+    path: Assets/Scenes/playGround.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Scenes/Tutorial.unity
+    guid: 28a59abc89095474d8d0af46d6461505
+  - enabled: 0
+    path: Assets/Scenes/Hard.unity
+    guid: 563482a8446ca8b48bc80ac4c1550b2f
+  - enabled: 0
+    path: Assets/Scenes/Ngcweti Levels/Level 1.unity
+    guid: 85925d13125525f47af2ea64f4217fbd
+  - enabled: 1
+    path: Assets/Scenes/Level-I.unity
+    guid: 95e8ab52ed3b9c047a9f39e71ec4ddba
   m_configObjects: {}
