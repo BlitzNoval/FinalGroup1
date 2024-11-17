@@ -11,6 +11,7 @@ TagManager:
   - Trigger
   - FinishTrigger
   - FinishBlock
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
