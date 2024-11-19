@@ -16,6 +16,7 @@ TagManager:
   - DashUpgrade
   - JumpUpgrade
   - TimeSlowUpgrade
+  - EndBlock
   layers:
   - Default
   - TransparentFX
