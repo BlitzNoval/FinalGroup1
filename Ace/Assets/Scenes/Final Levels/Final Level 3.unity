@@ -6372,8 +6372,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: 160
 --- !u!114 &293107181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8552,8 +8552,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: 160
 --- !u!114 &433842315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12323,7 +12323,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1905392180}
+  m_Mesh: {fileID: 1202444489}
 --- !u!33 &548498622
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -15547,8 +15547,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: -160
 --- !u!114 &669936048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18824,7 +18824,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.23815529, y: 0.66743445, z: 0.6646349, w: 0.23679921}
   m_LocalPosition: {x: 577.2994, y: -491.48462, z: 752.7039}
-  m_LocalScale: {x: 0.66607165, y: 0.031135172, z: 0.014999546}
+  m_LocalScale: {x: 0.66607165, y: 0.031135172, z: 0.011696646}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -24470,8 +24470,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: 160
 --- !u!114 &1024523226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35806,8 +35806,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: -160
 --- !u!114 &1461801000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37726,8 +37726,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: -160
 --- !u!114 &1499253411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39294,7 +39294,7 @@ Transform:
   m_GameObject: {fileID: 1614082182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 391.3, y: -489.5, z: -190.8}
+  m_LocalPosition: {x: 366.4, y: -489.5, z: 1098.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39699,8 +39699,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: -160
 --- !u!114 &1642967635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45378,171 +45378,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &1905392180
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh561708(Clone)(Clone)
-  serializedVersion: 11
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 24
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 18
-    localAABB:
-      m_Center: {x: 8.810104, y: 23.384766, z: 24.389141}
-      m_Extent: {x: 8.810104, y: 23.384766, z: 24.389141}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 0200010000000500040003000500060004000900080007000c000b000a000c000d000b000e000f0010000f0011001000
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 18
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 24
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 40
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 864
-    _typelessdata: 0000000000000000000000000000000000000000000080bf0000803f0000000000000000000080bf000000000000000030f68c4100000000000000000000000000000000000080bf0000803f0000000000000000000080bf30f68c410000000030f60c4100143b42000000000000000000000000000080bf0000803f0000000000000000000080bf30f60c4100143b4230f68c4100000000000000004f937b3f508f3d3e0000000000000000000000000000803f000080bf0000000055c150c030f68c4100000000f61c43424f937b3f508f3d3e0000000000000000000000000000803f000080bff61c434255c150c030f60c4100143b42000000004f937b3f508f3d3e0000000000000000000000000000803f000080bf000000003752314230f60c4100143b42f61c43424f937b3f508f3d3e0000000000000000000000000000803f000080bff61c43423752314230f68c4100000000f61c434200000000000000000000803f000080bf0000000000000000000080bf30f68cc1000000000000000000000000f61c434200000000000000000000803f000080bf0000000000000000000080bf000000000000000030f60c4100143b42f61c434200000000000000000000803f000080bf0000000000000000000080bf30f60cc100143b420000000000000000f61c43424f937bbf508f3d3e000000000000000000000000000080bf000080bff61c43c2000000000000000000000000000000004f937bbf508f3d3e000000000000000000000000000080bf000080bf000000000000000030f60c4100143b42f61c43424f937bbf508f3d3e000000000000000000000000000080bf000080bff61c43c24c5e3e4230f60c4100143b42000000004f937bbf508f3d3e000000000000000000000000000080bf000080bf000000004c5e3e4200000000000000000000000000000000000080bf00000000000080bf0000000000000000000080bf000000000000000030f68c41000000000000000000000000000080bf00000000000080bf0000000000000000000080bf30f68cc1000000000000000000000000f61c434200000000000080bf00000000000080bf0000000000000000000080bf00000000f61c434230f68c4100000000f61c434200000000000080bf00000000000080bf0000000000000000000080bf30f68cc1f61c4342
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 8.810104, y: 23.384766, z: 24.389141}
-    m_Extent: {x: 8.810104, y: 23.384766, z: 24.389141}
-  m_MeshUsageFlags: 0
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1.0000001
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!43 &1907955436
 Mesh:
   m_ObjectHideFlags: 0
@@ -46496,8 +46331,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 0
-  rotationSpeed: 100
+  enableRotation: 1
+  rotationSpeed: 160
 --- !u!114 &1947250204
 MonoBehaviour:
   m_ObjectHideFlags: 0

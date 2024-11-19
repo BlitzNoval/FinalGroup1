@@ -17,15 +17,9 @@ public class MovableDeathBarrier : MonoBehaviour
     public MovementType movementType = MovementType.Smooth;
 
     [Header("Rotation Settings")]
-    [Tooltip("If true, the barrier will rotate continuously.")]
+    [Tooltip("If true, the barrier will rotate 360 degrees continuously.")]
     public bool enableRotation = false;
     public float rotationSpeed = 100f; // Degrees per second
-
-    [Tooltip("Choose the direction of rotation: Clockwise or Counterclockwise.")]
-    public RotationDirection rotationDirection = RotationDirection.Clockwise;
-
-    [Tooltip("Choose the axis of rotation: X, Y, or Z.")]
-    public RotationAxis rotationAxis = RotationAxis.Z;
 
     private Vector3 startPosition;
     private Vector3 endPosition;
@@ -37,19 +31,6 @@ public class MovableDeathBarrier : MonoBehaviour
     {
         Linear,
         Smooth
-    }
-
-    public enum RotationDirection
-    {
-        Clockwise,
-        Counterclockwise
-    }
-
-    public enum RotationAxis
-    {
-        X,
-        Y,
-        Z
     }
 
     private void Start()
@@ -113,23 +94,7 @@ public class MovableDeathBarrier : MonoBehaviour
         // Apply rotation if enabled
         if (enableRotation)
         {
-            float rotationDirectionMultiplier = rotationDirection == RotationDirection.Clockwise ? -1f : 1f;
-            Vector3 axis = Vector3.zero;
-
-            switch (rotationAxis)
-            {
-                case RotationAxis.X:
-                    axis = Vector3.right;
-                    break;
-                case RotationAxis.Y:
-                    axis = Vector3.up;
-                    break;
-                case RotationAxis.Z:
-                    axis = Vector3.forward;
-                    break;
-            }
-
-            transform.Rotate(axis, rotationDirectionMultiplier * rotationSpeed * Time.deltaTime, Space.Self);
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime, Space.Self);
         }
     }
 
