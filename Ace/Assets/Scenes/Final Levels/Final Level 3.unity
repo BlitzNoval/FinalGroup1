@@ -6403,8 +6403,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: 160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &293107181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6899,7 +6899,7 @@ MonoBehaviour:
   pauseDuration: 0.5
   movementType: 1
   enableRotation: 0
-  rotationSpeed: -160
+  rotationSpeed: 100
 --- !u!114 &328699804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8583,8 +8583,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: 160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &433842315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13963,7 +13963,7 @@ MonoBehaviour:
   pauseDuration: 0.5
   movementType: 1
   enableRotation: 0
-  rotationSpeed: -160
+  rotationSpeed: 100
 --- !u!114 &641294506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14723,8 +14723,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: -160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &669936048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17302,7 +17302,7 @@ MonoBehaviour:
   pauseDuration: 0.5
   movementType: 1
   enableRotation: 0
-  rotationSpeed: -160
+  rotationSpeed: 100
 --- !u!114 &721568826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17754,7 +17754,7 @@ MonoBehaviour:
   pauseDuration: 0.5
   movementType: 1
   enableRotation: 0
-  rotationSpeed: -160
+  rotationSpeed: 100
 --- !u!114 &730698015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22812,8 +22812,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: 160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &1024523226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33667,8 +33667,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: -160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &1461801000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35587,8 +35587,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: -160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &1499253411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37560,8 +37560,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: -160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &1642967635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44192,8 +44192,8 @@ MonoBehaviour:
   pauseAtEnds: 0
   pauseDuration: 0.5
   movementType: 1
-  enableRotation: 1
-  rotationSpeed: 160
+  enableRotation: 0
+  rotationSpeed: 100
 --- !u!114 &1947250204
 MonoBehaviour:
   m_ObjectHideFlags: 0
