@@ -13,17 +13,24 @@ public class AbilityUpgradeManager : MonoBehaviour
     // UI Elements
     public GameObject jumpUpgradeUI;          // UI for the Jump Upgrade
     public GameObject doubleJumpUI;           // UI for the upgraded Double Jump
-    public GameObject dashUpgradeUI;          // UI for the Dash Upgrade
+    public GameObject dashUI;          // UI for the Dash Upgrade
     public GameObject dashUpgradedUI;         // UI for the upgraded Dash
-    public GameObject timeSlowUpgradeUI;      // UI for the Time Slow Upgrade
+    public GameObject timeSlowUI;      // UI for the Time Slow Upgrade
     public GameObject timeStopAllUpgradeUI;   // UI for the upgraded Time Slow
 
-    
     void Start()
     {
+        // Initially enable the UI for the available abilities
+        doubleJumpUI.SetActive(true);
+        dashUI.SetActive(true);
+        timeSlowUI.SetActive(true);
 
+        // Initially disable the UI for the upgraded abilities
+        jumpUpgradeUI.SetActive(false);
+        dashUpgradedUI.SetActive(false);
+        timeStopAllUpgradeUI.SetActive(false);
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("JumpUpgrade"))
@@ -32,11 +39,11 @@ public class AbilityUpgradeManager : MonoBehaviour
         }
         else if (other.CompareTag("DashUpgrade"))
         {
-            ProcessUpgrade(3, typeof(DashUpgrade), typeof(Dash), other.gameObject, dashUpgradeUI, dashUpgradedUI);
+            ProcessUpgrade(3, typeof(DashUpgrade), typeof(Dash), other.gameObject, dashUI, dashUpgradedUI);
         }
         else if (other.CompareTag("TimeSlowUpgrade"))
         {
-            ProcessUpgrade(3, typeof(TimeStopAllUpgrade), typeof(TimeSlow), other.gameObject, timeSlowUpgradeUI, timeStopAllUpgradeUI);
+            ProcessUpgrade(3, typeof(TimeStopAllUpgrade), typeof(TimeSlow), other.gameObject, timeSlowUI, timeStopAllUpgradeUI);
         }
     }
 

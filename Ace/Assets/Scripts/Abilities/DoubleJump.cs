@@ -5,16 +5,15 @@ using UnityEngine.UI;
 
 public class DoubleJump : MonoBehaviour
 {
-    public int maxJumps = 2;  // allows for both jumps (normal & double jump)
-    private int jumpCount = 0;  // tracks the amount of jumps
-    public float doubleJumpForce = 13f;  // the force of the jumps
+    public int maxJumps = 2;  // Allows for both jumps (normal & double jump)
+    private int jumpCount = 0;  // Tracks the amount of jumps
+    public float doubleJumpForce = 13f;  // The force of the double jump
 
     private Rigidbody rb;
     private PlayerMovement playerMovement;
 
     // UI elements
-    public GameObject doubleJumpUI;  // UI to show when double jump is available
-    public GameObject blackoutUI; // UI to show when double jump is unavailable
+    public GameObject blackoutUI;    // UI to show when double jump is unavailable
 
     void Start()
     {
@@ -25,7 +24,7 @@ public class DoubleJump : MonoBehaviour
     void Update()
     {
         // Check if the jump key is pressed, player is not grounded, and player is not wallrunning
-        if (Input.GetKeyDown(playerMovement.jumpKey) && !playerMovement.grounded && jumpCount < maxJumps && !playerMovement.wallrunning)
+        if (Input.GetKeyDown(playerMovement.jumpKey) && jumpCount < maxJumps && !playerMovement.wallrunning)
         {
             PerformJump();
             jumpCount++;
@@ -54,17 +53,15 @@ public class DoubleJump : MonoBehaviour
     // Update Jump UI based on current jump status
     private void UpdateJumpUI()
     {
-        // Always show DoubleJumpUI (as the ability is available)
-        doubleJumpUI.SetActive(true);
-
-        // Show BlackoutUI only after the second jump, when the player is in the air and not grounded
-        if (jumpCount == 1 && !playerMovement.grounded)
+        // Enable the DoubleJumpUI if the player can double jump (has not used the second jump yet)
+        if (jumpCount < maxJumps)
         {
-            blackoutUI.SetActive(true); // Show BlackoutUI after second jump in the air
+            blackoutUI.SetActive(false);
         }
+        // Enable BlackoutUI after the second jump is used
         else
         {
-            blackoutUI.SetActive(false); // Hide BlackoutUI when grounded or no second jump
+            blackoutUI.SetActive(true);
         }
     }
 }
