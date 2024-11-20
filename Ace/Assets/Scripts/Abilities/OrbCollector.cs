@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrbCollector : MonoBehaviour
 {
-    public AbilityAmount abilityAmountScript; 
+    public AbilityAmount abilityAmountScript;  // Link to AbilityAmount script
     public AudioClip collectSound;
     public AudioSource audioSource;
 
@@ -12,9 +12,9 @@ public class OrbCollector : MonoBehaviour
     {
         if (other.CompareTag("Orb"))
         {
-            abilityAmountScript.AddOrbs(1);
+            abilityAmountScript.AddOrbs(1); // Add 1 orb when an orb is collected
             PlaySound(collectSound);
-            Destroy(other.gameObject);
+            Destroy(other.gameObject); // Destroy the orb
         }
     }
 
@@ -22,7 +22,7 @@ public class OrbCollector : MonoBehaviour
     {
         if (audioSource != null && clip != null)
         {
-            audioSource.PlayOneShot(clip);
+            audioSource.PlayOneShot(clip); // Play sound effect
         }
     }
 

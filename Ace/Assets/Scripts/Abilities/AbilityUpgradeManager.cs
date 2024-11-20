@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbilityUpgradeManager : MonoBehaviour
 {
@@ -70,12 +71,25 @@ public class AbilityUpgradeManager : MonoBehaviour
             var disableComponent = GetComponent(disableScript) as MonoBehaviour;
             if (disableComponent != null) disableComponent.enabled = false;
 
-            // Enable the upgraded UI and disable the previous UI
-            if (currentUI != null) currentUI.SetActive(false);
-            if (upgradedUI != null) upgradedUI.SetActive(true);
+            // Swap the UI activation logic
+            if (upgradedUI != null)
+            {
+                upgradedUI.SetActive(false); // Disable the upgraded UI
+                Debug.Log($"Disabled UI: {upgradedUI.name}");
+            }
+
+            if (currentUI != null)
+            {
+                currentUI.SetActive(true); // Enable the initial ability's UI
+                Debug.Log($"Enabled UI: {currentUI.name}");
+            }
 
             // Destroy the upgrade object
             Destroy(upgradeObject);
+
+            // Save updated orb amount and other relevant data
+            abilityAmountScript.SaveOrbs(); // This will update PlayerPrefs for the orb amount
+            Debug.Log("Orb amount saved to PlayerPrefs after upgrade.");
         }
         else
         {
