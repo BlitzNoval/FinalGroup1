@@ -1,145 +1,110 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
-public class SpeedrunTimer : MonoBehaviour
+public class SpeedrunClockWithSplits : MonoBehaviour
 {
-    public TextMeshProUGUI timerText;
-    private float elapsedTime = 0f;
-    private bool isRunning = false;
+    [SerializeField] private TextMeshProUGUI timerText;       // Main timer display
+    [SerializeField] private TextMeshProUGUI splitLogText;    // Split log display
+    private float timer = 0f;                                 // Time elapsed
+    private bool isRunning = false;                          // Timer running state
+    private float lastCheckpointTime = 0f;                   // Time of the last checkpoint
+    private float[] bestSplits;                              // Best splits for the scene
+    private int checkpointIndex = 0;                         // Current checkpoint index
 
     void Start()
     {
-        StartTimer();
+        // Initialize best splits with a large value
+        bestSplits = new float[10]; // Adjust size based on the number of checkpoints
+        for (int i = 0; i < bestSplits.Length; i++)
+        {
+            bestSplits[i] = float.MaxValue;
+        }
     }
 
     void Update()
     {
         if (isRunning)
         {
-            elapsedTime += Time.deltaTime;
-            DisplayTime(elapsedTime);
+            // Increment the timer
+            timer += Time.deltaTime;
+
+            // Format and display the time
+            int minutes = Mathf.FloorToInt(timer / 60);
+            int seconds = Mathf.FloorToInt(timer % 60);
+            int milliseconds = Mathf.FloorToInt((timer % 1) * 1000);
+            timerText.text = $"{minutes}:{seconds:00}.{milliseconds:000}";
         }
     }
 
+    /// <summary>
+    /// Starts the timer.
+    /// </summary>
     public void StartTimer()
     {
         isRunning = true;
-        elapsedTime = 0f;
     }
 
+    /// <summary>
+    /// Stops the timer.
+    /// </summary>
     public void StopTimer()
     {
         isRunning = false;
-        StartCoroutine(CelebrateFinish());
     }
 
+    /// <summary>
+    /// Resets the timer and checkpoints.
+    /// </summary>
     public void ResetTimer()
     {
-        elapsedTime = 0f;
-        DisplayTime(elapsedTime);
-    }
-
-    void DisplayTime(float timeToDisplay)
-    {
-        timeToDisplay += 1;
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        float milliseconds = (timeToDisplay % 1) * 1000;
-
-        timerText.text = string.Format("{0:00}:{1:00}:{2:000}", minutes, seconds, milliseconds);
+        isRunning = false;
+        timer = 0f;
+        lastCheckpointTime = 0f;
+        checkpointIndex = 0;
+        timerText.text = "0:00.000";
+        splitLogText.text = ""; // Clear split log
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // Check if the player hits a checkpoint
+        if (other.CompareTag("Checkpoint"))
         {
-            StopTimer();
-            Debug.Log("Timer Stopped!");
+            LogSplit();
         }
     }
 
-    IEnumerator CelebrateFinish()
+    /// <summary>
+    /// Logs a split when a checkpoint is reached.
+    /// </summary>
+    private void LogSplit()
     {
-        // Pulse animation
-        for (int i = 0; i < 3; i++)
+        if (checkpointIndex >= bestSplits.Length) return;
+
+        // Calculate current split time
+        float splitTime = timer - lastCheckpointTime;
+        lastCheckpointTime = timer;
+
+        // Compare with the best split
+        bool isFaster = splitTime < bestSplits[checkpointIndex];
+        float difference = splitTime - bestSplits[checkpointIndex];
+
+        // Update best split if it's faster
+        if (isFaster)
         {
-            yield return StartCoroutine(PulseText(1.2f, 0.2f));
-            yield return StartCoroutine(PulseText(1f, 0.2f));
+            bestSplits[checkpointIndex] = splitTime;
         }
 
-        // Color change animation
-        yield return StartCoroutine(ChangeColor(Color.red, 0.5f));
-        yield return new WaitForSeconds(0.3f);
-        yield return StartCoroutine(ChangeColor(Color.yellow, 0.5f));
-        yield return new WaitForSeconds(0.3f);
-        yield return StartCoroutine(ChangeColor(Color.green, 0.5f));
+        // Format the split log
+        string color = isFaster ? "#00FF00" : "#FF0000"; // Green for faster, red for slower
+        string differenceText = isFaster
+            ? $"-{Mathf.Abs(difference):0.000}s"
+            : $"+{Mathf.Abs(difference):0.000}s";
 
-        // Final celebratory animation
-        yield return StartCoroutine(RotateText(360f, 1f));
-        yield return StartCoroutine(ScaleText(1.5f, 0.5f));
-    }
+        // Append split time to the log
+        splitLogText.text += $"Checkpoint {checkpointIndex + 1}: {splitTime:0.000}s <color={color}>{differenceText}</color>\n";
 
-    IEnumerator PulseText(float targetScale, float duration)
-    {
-        Vector3 originalScale = timerText.transform.localScale;
-        Vector3 targetScaleVector = Vector3.one * targetScale;
-
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
-        {
-            timerText.transform.localScale = Vector3.Lerp(originalScale, targetScaleVector, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        timerText.transform.localScale = originalScale;
-    }
-
-    IEnumerator ChangeColor(Color targetColor, float duration)
-    {
-        Color originalColor = timerText.color;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            timerText.color = Color.Lerp(originalColor, targetColor, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        timerText.color = targetColor;
-    }
-
-    IEnumerator RotateText(float angle, float duration)
-    {
-        Quaternion originalRotation = timerText.transform.rotation;
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle) * originalRotation;
-
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
-        {
-            timerText.transform.rotation = Quaternion.Slerp(originalRotation, targetRotation, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        timerText.transform.rotation = targetRotation;
-    }
-
-    IEnumerator ScaleText(float targetScale, float duration)
-    {
-        Vector3 originalScale = timerText.transform.localScale;
-        Vector3 targetScaleVector = Vector3.one * targetScale;
-
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
-        {
-            timerText.transform.localScale = Vector3.Lerp(originalScale, targetScaleVector, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        timerText.transform.localScale = targetScaleVector;
+        // Increment checkpoint index
+        checkpointIndex++;
     }
 }

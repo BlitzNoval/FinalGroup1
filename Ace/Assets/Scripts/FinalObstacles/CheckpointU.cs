@@ -2,24 +2,21 @@ using UnityEngine;
 
 public class CheckpointU : MonoBehaviour
 {
-    private bool isCheckpointActivated = false;
+    private bool isCheckpointActivated = false; // Flag to ensure the log happens only once
+
+    // Public GameObject for the respawn point
     public GameObject respawnPoint;
-    public int checkpointIndex; // Unique index for each checkpoint
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isCheckpointActivated)
         {
             PlayerRespawn playerRespawn = other.GetComponent<PlayerRespawn>();
-            TimerManager timerManager = FindObjectOfType<TimerManager>();
-
-            if (playerRespawn != null && timerManager != null)
+            if (playerRespawn != null)
             {
-                playerRespawn.SetCheckpoint(respawnPoint);
-                timerManager.OnCheckpointReached(checkpointIndex);
-
-                isCheckpointActivated = true;
-                Debug.Log($"Checkpoint {checkpointIndex} activated.");
+                playerRespawn.SetCheckpoint(respawnPoint); // Set the checkpoint to this GameObject
+                isCheckpointActivated = true;  // Prevent re-logging this checkpoint
+                Debug.Log("Checkpoint activated at: " + transform.position);
             }
         }
     }
