@@ -17,6 +17,9 @@ public class TimeStopAllUpgrade : MonoBehaviour
     public GameObject timeStopAllUpgradeUI;   // UI for the upgraded Time Slow
     public TextMeshProUGUI timeRemainingText; // TextMeshPro UI to show remaining time
 
+
+    
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
@@ -42,7 +45,7 @@ public class TimeStopAllUpgrade : MonoBehaviour
             // Update the TextMeshPro UI to show the remaining time
             if (timeRemainingText != null)
             {
-                timeRemainingText.text = "Time Remaining: " + Mathf.Max(0, slowTimeRemaining).ToString("F2") + "s";
+                timeRemainingText.text = Mathf.Max(0, slowTimeRemaining).ToString("F2") + "s";
             }
         }
     }
@@ -60,8 +63,8 @@ public class TimeStopAllUpgrade : MonoBehaviour
             timeRemainingText.gameObject.SetActive(true); // Show the text
         }
 
-        // Double the slowDuration for the upgraded effect
-        slowDuration *= 2;
+/*        // Double the slowDuration for the upgraded effect
+        slowDuration *= 2;*/
 
         // Manage UI visibility: hide the old UI and show the upgraded UI
         if (timeSlowUpgradeUI != null) timeSlowUpgradeUI.SetActive(false);
