@@ -1,35 +1,35 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; 
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    public GameObject checkpointUI; 
+    public TextMeshProUGUI checkpointText; 
     public float displayDuration = 2f; 
 
     private void Start()
     {
-        if (checkpointUI != null)
+        if (checkpointText != null)
         {
-            checkpointUI.SetActive(false); 
+            checkpointText.gameObject.SetActive(false); 
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) 
+        if (other.CompareTag("Player"))
         {
-            if (checkpointUI != null)
+            if (checkpointText != null)
             {
-                StartCoroutine(DisplayCheckpointUI());
+                StartCoroutine(DisplayCheckpointText());
             }
         }
     }
 
-    private IEnumerator DisplayCheckpointUI()
+    private IEnumerator DisplayCheckpointText()
     {
-        checkpointUI.SetActive(true); 
-        yield return new WaitForSeconds(displayDuration); 
-        checkpointUI.SetActive(false); 
+        checkpointText.gameObject.SetActive(true); 
+        yield return new WaitForSeconds(displayDuration);
+        checkpointText.gameObject.SetActive(false); 
     }
 }
