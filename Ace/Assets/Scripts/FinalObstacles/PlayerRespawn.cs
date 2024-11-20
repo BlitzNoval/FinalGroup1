@@ -11,6 +11,12 @@ public class PlayerRespawn : MonoBehaviour
         Debug.Log("Checkpoint set at: " + lastCheckpoint.position);
     }
 
+    // Public method to get the last checkpoint
+    public Transform GetLastCheckpoint()
+    {
+        return lastCheckpoint;
+    }
+
     public void RespawnAtCheckpoint()
     {
         if (lastCheckpoint != null)
