@@ -353,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxJumps: 1
   doubleJumpForce: 13
+  doubleJumpUI: {fileID: 0}
+  blackoutUI: {fileID: 0}
 --- !u!114 &151300412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +373,8 @@ MonoBehaviour:
   maxDashCount: 3
   dashRechargeTime: 5
   dashKey: 304
+  dashUI: {fileID: 0}
+  blackoutUI: {fileID: 0}
 --- !u!114 &151300413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +484,10 @@ MonoBehaviour:
   dashSpeed: 50
   maxStamina: 3
   staminaRechargeTime: 2
+  verticalDashScale: 0.1
   dashKey: 304
+  blackoutUI: {fileID: 0}
+  dashCountText: {fileID: 0}
 --- !u!114 &151300417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,6 +533,12 @@ MonoBehaviour:
   successSound: {fileID: 8300000, guid: c67c80d4ad25e0842a9e3607f20d0c9d, type: 3}
   failureSound: {fileID: 8300000, guid: c63526c84d6149b4c84079002bfc437e, type: 3}
   audioSource: {fileID: 597708241}
+  jumpUpgradeUI: {fileID: 0}
+  doubleJumpUI: {fileID: 0}
+  dashUpgradeUI: {fileID: 0}
+  dashUpgradedUI: {fileID: 0}
+  timeSlowUpgradeUI: {fileID: 0}
+  timeStopAllUpgradeUI: {fileID: 0}
 --- !u!114 &151300420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,6 +554,9 @@ MonoBehaviour:
   slowTimeScale: 0.5
   normalTimeScale: 1
   slowDuration: 2
+  timeSlowUpgradeUI: {fileID: 0}
+  timeStopAllUpgradeUI: {fileID: 0}
+  timeRemainingText: {fileID: 0}
 --- !u!114 &151300421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,10 +570,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxJumps: 2
-  doubleJumpForce: 13
   superJumpForce: 20
   chargeTime: 4
   chargeRetentionTime: 10
+  doubleJumpUpgradeUI: {fileID: 0}
+  superJumpUpgradeUI: {fileID: 0}
+  chargeProgressText: {fileID: 0}
+  chargeBar: {fileID: 0}
 --- !u!1 &176133463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1485245949
 Transform:
   m_ObjectHideFlags: 0
