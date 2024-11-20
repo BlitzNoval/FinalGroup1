@@ -30765,8 +30765,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 290.8333, y: 176}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 302, y: 192.5}
+  m_SizeDelta: {x: 302.964, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1365566834
 MonoBehaviour:
@@ -30788,7 +30788,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0 : 00.0'
+  m_text: '0 : 00.000'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -30815,8 +30815,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25.55
+  m_fontSizeBase: 25.55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -34353,7 +34353,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364dc8ca518273d4f845de3a2e90fe8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 16929341}
+  respawnPoint: {fileID: 0}
+  timerScript: {fileID: 0}
+  splitDisplay: {fileID: 0}
 --- !u!1001 &1624445706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44984,6 +44986,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 1175303885}
+  timerScript: {fileID: 2106512954}
+  splitDisplay: {fileID: 807163940}
 --- !u!1001 &1999946386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47051,7 +47055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1365566834}
-  splitLogText: {fileID: 807163940}
 --- !u!1001 &2112222473
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48678,6 +48681,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 57338054}
+  timerScript: {fileID: 2106512954}
+  splitDisplay: {fileID: 1365566834}
 --- !u!33 &9167440348271535885
 MeshFilter:
   m_ObjectHideFlags: 0
