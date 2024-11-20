@@ -5,13 +5,13 @@ using TMPro;
 
 public class DoubleJumpUpgraded : MonoBehaviour
 {
-    public int maxJumps = 2; // Maximum jump count
-    private int jumpCount = 0; // Tracks the number of jumps
-    public float jumpForce = 10f; // Normal jump force (editable in Inspector)
-    public float superJumpForce = 20f; // Super jump force
+    public int extraJumps = 2; // Number of extra jumps allowed
+    private int remainingJumps; // Tracks remaining extra jumps
+    public float jumpForce = 10f; // Normal jump force
+    public float superJumpForce = 20f; // Force for the super jump
     public float chargeTime = 4f; // Time required to fully charge the super jump
     public float chargeRetentionTime = 10f; // Duration to retain the full charge of the super jump
-    private float chargeTimer = 0f; // Charge timer for the super jump
+    private float chargeTimer = 0f; // Timer for charging the super jump
     private float chargeRetentionTimer = 0f;
     private bool isCharging = false;
     private bool canSuperJump = false;
@@ -21,13 +21,14 @@ public class DoubleJumpUpgraded : MonoBehaviour
     private PlayerMovement playerMovement;
 
     // UI Elements
-    public GameObject chargeBar; // UI element for charge progress bar
-    public GameObject blackoutUI; // UI element for blackout effect
+    public GameObject chargeBar; // UI for charge progress
+    public GameObject blackoutUI; // UI to show when jumps are unavailable
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
+        remainingJumps = extraJumps; // Initialize remaining jumps
     }
 
     void Update()
@@ -43,26 +44,24 @@ public class DoubleJumpUpgraded : MonoBehaviour
                 EnableBlackoutUI();
                 ResetChargeBar(); // Reset charge bar after using the charged jump
             }
-            else if (jumpCount < maxJumps && !playerMovement.wallrunning && !hasSuperJumped)
+            else if (remainingJumps > 0 && !playerMovement.wallrunning && !playerMovement.grounded && !hasSuperJumped)
             {
-                PerformJump();
-                jumpCount++;
-                if (jumpCount >= maxJumps) EnableBlackoutUI();
+                PerformDoubleJump();
+                remainingJumps--; // Consume one extra jump
+                if (remainingJumps <= 0) EnableBlackoutUI();
             }
         }
 
         // Reset jumps and UI when grounded or wall-running
-        if ((playerMovement.grounded || playerMovement.wallrunning) && jumpCount > 0)
+        if (playerMovement.grounded || playerMovement.wallrunning)
         {
-            jumpCount = 0;
-            hasSuperJumped = false;
-            DisableBlackoutUI();
+            ResetJumpState();
         }
     }
 
     void HandleSuperJumpCharging()
     {
-        if (playerMovement.grounded && jumpCount == 0 && !playerMovement.wallrunning && !canSuperJump)
+        if (playerMovement.grounded && !playerMovement.wallrunning && !canSuperJump)
         {
             if (Input.GetKey(KeyCode.LeftControl))
             {
@@ -83,24 +82,35 @@ public class DoubleJumpUpgraded : MonoBehaviour
             }
             else if (isCharging)
             {
-                ResetJumpingAndCharging();
+                ResetChargingState();
             }
         }
 
-        if (canSuperJump && chargeRetentionTimer > 0)
+        if (canSuperJump)
         {
-            chargeRetentionTimer -= Time.deltaTime;
+            if (chargeRetentionTimer > 0)
+            {
+                chargeRetentionTimer -= Time.deltaTime;
 
-            if (chargeRetentionTimer <= 0) ResetJumpingAndCharging();
+                if (chargeBar != null)
+                {
+                    // Keep the charge bar full during retention
+                    chargeBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 1f;
+                }
+            }
+            else
+            {
+                ResetChargingState(); // Reset when retention time expires
+            }
         }
     }
 
-    void PerformJump()
+    void PerformDoubleJump()
     {
         // Reset Y velocity for consistent jump height
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        // Use the edited jumpForce directly from this script (not playerMovement)
+        // Apply the double jump force
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
@@ -109,12 +119,22 @@ public class DoubleJumpUpgraded : MonoBehaviour
         // Reset Y velocity for consistent jump height
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        // Apply super jump force
+        // Apply the super jump force
         rb.AddForce(Vector3.up * superJumpForce, ForceMode.Impulse);
-        jumpCount = maxJumps; // Prevent further jumps until grounded
+
+        // Reset jump state after super jump
+        remainingJumps = 0;
+        canSuperJump = false;
     }
 
-    void ResetJumpingAndCharging()
+    void ResetJumpState()
+    {
+        remainingJumps = extraJumps;
+        hasSuperJumped = false;
+        DisableBlackoutUI();
+    }
+
+    void ResetChargingState()
     {
         isCharging = false;
         chargeTimer = 0f;
@@ -122,13 +142,13 @@ public class DoubleJumpUpgraded : MonoBehaviour
         canSuperJump = false;
 
         if (chargeBar != null)
-            chargeBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 0f; // Reset the charge bar
+            chargeBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 0f; // Reset charge bar
     }
 
     void ResetChargeBar()
     {
         if (chargeBar != null)
-            chargeBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 0f; // Clear the charge bar
+            chargeBar.GetComponent<UnityEngine.UI.Image>().fillAmount = 0f; // Clear charge bar
     }
 
     void EnableBlackoutUI()
