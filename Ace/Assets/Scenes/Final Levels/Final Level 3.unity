@@ -332,7 +332,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!64 &1876987
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3641,7 +3643,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!43 &78888253
 Mesh:
   m_ObjectHideFlags: 0
@@ -7879,7 +7883,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!64 &173930638
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8915,8 +8921,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 100, y: 100, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &228158655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16908,7 +16914,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!4 &395980815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5819764139791089506, guid: 2d813655b782eef45b7188afa2dfdb2e, type: 3}
@@ -32284,8 +32292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 80
   jumpDirection: {x: 0, y: 80, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &701107003
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -39835,7 +39843,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!1 &826443012
 GameObject:
   m_ObjectHideFlags: 0
@@ -40160,6 +40170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1072422189}
     m_Modifications:
+    - target: {fileID: 2280099748001482861, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -133
+      objectReference: {fileID: 0}
     - target: {fileID: 2761786420387117321, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_Text
       value: Blazing Trail
@@ -40204,6 +40218,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300008, guid: ef4a8d855fd835e42b625eb8c707a861, type: 3}
+    - target: {fileID: 3722821021686388873, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4276789398683656038, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -40230,7 +40248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5081762405607460838, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5222135275094434910, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_AnchorMax.y
@@ -40250,19 +40268,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5768573902711160657, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5768573902711160657, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5768573902711160657, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1212.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5768573902711160657, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -87.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9067495633295188885, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40305,7 +40323,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3013766520047494305, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d421c78e057a6d4c976602e2f945779, type: 3}
@@ -40969,8 +40988,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 30
   jumpDirection: {x: 0, y: 30, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!65 &841520976
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44196,7 +44215,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!43 &916070511
 Mesh:
   m_ObjectHideFlags: 0
@@ -51776,8 +51797,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: -100, y: 100, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1109391368
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -52146,8 +52167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1110872655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -53034,8 +53055,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1123692995
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -54712,7 +54733,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!1 &1152848156
 GameObject:
   m_ObjectHideFlags: 0
@@ -55620,8 +55643,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1161113357
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -62096,8 +62119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1368927560
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -65093,8 +65116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1410182430
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -66687,7 +66710,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!64 &1450743265
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -72604,7 +72629,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!43 &1537094331
 Mesh:
   m_ObjectHideFlags: 0
@@ -75451,8 +75478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 0, y: 100, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1600020580
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -77426,7 +77453,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!64 &1647873865
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -78998,8 +79027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 30
   jumpDirection: {x: 0, y: 30, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!43 &1688242785
 Mesh:
   m_ObjectHideFlags: 0
@@ -86498,8 +86527,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &1845507647
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -86876,7 +86905,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!64 &1849946526
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -90019,7 +90050,9 @@ MonoBehaviour:
   useGlowEffect: 0
   glowFrequency: 2
   disappearSound: {fileID: 0}
+  countdownBeepSound: {fileID: 0}
   disappearParticles: {fileID: 0}
+  baseMaterial: {fileID: 0}
 --- !u!43 &1898084061
 Mesh:
   m_ObjectHideFlags: 0
@@ -96377,8 +96410,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 0, y: 100, z: 0}
-  idleGlowEffect: {fileID: 0}
-  bounceEffect: {fileID: 0}
+  bounceSound: {fileID: 0}
+  soundVolume: 0.7
 --- !u!64 &2040422264
 MeshCollider:
   m_ObjectHideFlags: 0
