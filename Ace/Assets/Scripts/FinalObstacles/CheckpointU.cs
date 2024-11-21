@@ -12,13 +12,8 @@ public class CheckpointU : MonoBehaviour
     public AudioClip checkpointSound; // Sound to play when activated
     private AudioSource audioSource;
 
-    private Vector3 originalScale; // Store original scale for pulsing effect
-
     private void Start()
     {
-        // Cache original scale
-        originalScale = transform.localScale;
-
         // Ensure there's an AudioSource attached or add one
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
@@ -47,49 +42,18 @@ public class CheckpointU : MonoBehaviour
 
                 previousSplitTime = currentSplitTime; // Update the previous split time
 
-                // Trigger exciting effects
-                TriggerExcitingEffects();
+                // Trigger sound effect
+                TriggerSoundEffect();
             }
         }
     }
 
-    private void TriggerExcitingEffects()
+    private void TriggerSoundEffect()
     {
         // Play sound effect
         if (audioSource != null && checkpointSound != null)
         {
             audioSource.Play();
         }
-
-        // Start pulse animation
-        StartCoroutine(PulseScale());
-    }
-
-    private System.Collections.IEnumerator PulseScale()
-    {
-        float duration = 1f; // Duration of the pulse effect
-        float elapsed = 0f;
-        Vector3 targetScale = originalScale * 1.5f; // Target scale for pulsing
-
-        // Scale up
-        while (elapsed < duration / 2)
-        {
-            elapsed += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(originalScale, targetScale, elapsed / (duration / 2));
-            yield return null;
-        }
-
-        elapsed = 0f;
-
-        // Scale back down
-        while (elapsed < duration / 2)
-        {
-            elapsed += Time.deltaTime;
-            transform.localScale = Vector3.Lerp(targetScale, originalScale, elapsed / (duration / 2));
-            yield return null;
-        }
-
-        // Ensure the scale is reset
-        transform.localScale = originalScale;
     }
 }
