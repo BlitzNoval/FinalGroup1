@@ -31503,6 +31503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853acb79edda73c45a190d83953b31f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!114 &1011496173
 MonoBehaviour:
   m_ObjectHideFlags: 0
