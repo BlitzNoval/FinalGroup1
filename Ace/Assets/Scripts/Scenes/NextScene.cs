@@ -1,43 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadNextSceneOnButton : MonoBehaviour
+public class NextScene: MonoBehaviour
 {
     public GameObject playerPrefab; // The player prefab to load in the next scene
     public Transform spawnLocation; // The transform in the next scene where the player should spawn
+    public int nextSceneIndex; // The index of the next scene to load
 
-    // Function to be called by the UI button
-    public void LoadNextScene()
+    // Method to be used in the Button OnClick() event
+    public void OnLoadButtonClick()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextSceneIndex = currentSceneIndex + 1;
+        // Ensure that the player is not already instantiated
+        GameObject existingPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (existingPlayer != null)
+        {
+            Destroy(existingPlayer); // Destroy the old player to avoid duplicates
+        }
 
-        // Check if the next scene index is within range
+        // Before loading, check if the next scene index is valid
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            // Before loading, destroy any existing player to avoid duplicates
-            Destroy(GameObject.FindGameObjectWithTag("Player"));
-
             // Load the next scene asynchronously
-            SceneManager.LoadScene(nextSceneIndex);
-
-            // After the scene is loaded, instantiate the player prefab at the desired spawn location
-            SceneManager.sceneLoaded += (scene, mode) =>
+            SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Single).completed += (operation) =>
             {
+                // After the scene has loaded, instantiate the player prefab at the desired spawn location
                 if (playerPrefab != null && spawnLocation != null)
                 {
-                    // Instantiate the player prefab at the spawn location's position and rotation
-                    Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
+                    GameObject player = Instantiate(playerPrefab, spawnLocation.position, spawnLocation.rotation);
+
+                    // Check if the player prefab has the singleton component, and set it
+                    PlayerSingleton playerSingleton = player.GetComponent<PlayerSingleton>();
+                    if (playerSingleton != null)
+                    {
+                        playerSingleton.SetInstance(player); // Set the singleton instance if it exists
+                    }
+
+                    Debug.Log("Player successfully loaded into the new scene.");
+
+                    // Set the timescale to 1 (normal speed)
+                    Time.timeScale = 1;
                 }
                 else
                 {
-                    Debug.LogWarning("Player prefab or spawn location is not assigned.");
+                    Debug.LogError("Player prefab or spawn location is not assigned.");
                 }
             };
         }
         else
         {
-            Debug.LogWarning("No more scenes to load!");
+            Debug.LogError("Next scene index is out of range.");
         }
     }
 }

@@ -33,10 +33,7 @@ public class AbilityUpgradeManager : MonoBehaviour
     void Start()
     {
         // Ensure that the notices and UI elements persist between scenes
-        DontDestroyOnLoad(notice);
-        DontDestroyOnLoad(dashNotice);
-        DontDestroyOnLoad(jumpNotice);
-        DontDestroyOnLoad(timeNotice);
+
 
         doubleJumpUI.SetActive(true);
         dashUI.SetActive(true);
