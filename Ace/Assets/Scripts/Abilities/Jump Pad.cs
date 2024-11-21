@@ -2,49 +2,38 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    [Tooltip("The force applied to objects that touch the jump pad")]
+    [Header("Jump Settings")]
     public float jumpForce = 10f;
-
-    [Tooltip("The direction of the jump force")]
     public Vector3 jumpDirection = Vector3.up;
 
-    [Tooltip("Particle system for the idle glow effect")]
-    public ParticleSystem idleGlowEffect;
+    [Header("Sound Settings")]
+    public AudioClip bounceSound;
+    [Range(0f, 1f)] public float soundVolume = 0.7f;
 
-    [Tooltip("Particle system for the bounce effect")]
-    public ParticleSystem bounceEffect;
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Check if the colliding object has a Rigidbody
-        Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            // Apply the jump force to the Rigidbody
-            rb.AddForce(jumpDirection.normalized * jumpForce, ForceMode.Impulse);
-
-            // Trigger the bounce effect
-            TriggerBounceEffect(collision.GetContact(0).point);
-        }
-    }
-
-    private void TriggerBounceEffect(Vector3 position)
-    {
-        if (bounceEffect != null)
-        {
-            ParticleSystem instance = Instantiate(bounceEffect, position, Quaternion.identity);
-            instance.transform.up = jumpDirection; // Align particles with jump direction
-            instance.Play();
-            Destroy(instance.gameObject, instance.main.duration);
-        }
-    }
+    private AudioSource audioSource;
 
     private void Start()
     {
-        // Play idle glow effect if assigned
-        if (idleGlowEffect != null)
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0.5f; // 3D sound with a more natural stereo blend
+        audioSource.maxDistance = 1f; // Optional: Set maximum distance for sound to be heard
+        audioSource.rolloffMode = AudioRolloffMode.Linear; // Optional: Linear rolloff for a smooth volume change over distance
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            idleGlowEffect.Play();
+            // Apply jump force
+            rb.AddForce(jumpDirection.normalized * jumpForce, ForceMode.Impulse);
+
+            // Play sound
+            if (bounceSound != null)
+            {
+                audioSource.PlayOneShot(bounceSound, soundVolume);
+            }
         }
     }
 }
