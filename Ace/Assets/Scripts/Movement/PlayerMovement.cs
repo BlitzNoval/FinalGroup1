@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
 
-    private float playerTimeMultiplier; 
+    private float playerTimeMultiplier;
 
     [Header("Jumping")]
     public float jumpForce;
@@ -279,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
         if (OnSlope())
             text_speed.SetText("Speed: " + Round(rb.velocity.magnitude, 1));
         else
-            text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1)); 
+            text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1));
 
         text_mode.SetText(state.ToString());
     }

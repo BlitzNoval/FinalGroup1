@@ -5,63 +5,61 @@ using UnityEngine.UI;
 
 public class DoubleJump : MonoBehaviour
 {
-    public int maxJumps = 2;  // Allows for both jumps (normal & double jump)
-    private int jumpCount = 0;  // Tracks the amount of jumps
-    public float doubleJumpForce = 13f;  // The force of the double jump
+    public int extraJumps = 1; // Number of extra jumps allowed (e.g., one double jump)
+    private int remainingJumps; // Tracks the remaining extra jumps
+    public float doubleJumpForce = 13f; // Force applied for the double jump
 
     private Rigidbody rb;
     private PlayerMovement playerMovement;
 
     // UI elements
-    public GameObject blackoutUI;    // UI to show when double jump is unavailable
+    public GameObject blackoutUI; // UI to indicate the double jump is unavailable
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
+        remainingJumps = extraJumps; // Initialize remaining jumps to the allowed extra jumps
     }
 
     void Update()
     {
-        // Check if the jump key is pressed, player is not grounded, and player is not wallrunning
-        if (Input.GetKeyDown(playerMovement.jumpKey) && jumpCount < maxJumps && !playerMovement.wallrunning)
+        // Check if the jump key is pressed and the player has remaining extra jumps
+        if (Input.GetKeyDown(playerMovement.jumpKey) && remainingJumps > 0 && !playerMovement.wallrunning && !playerMovement.grounded)
         {
-            PerformJump();
-            jumpCount++;
+            PerformDoubleJump();
+            remainingJumps--; // Consume one extra jump
         }
 
-        // Reset jump count when grounded
-        if (playerMovement.grounded)
+        // Reset the remaining extra jumps when grounded or wall-running
+        if (playerMovement.grounded || playerMovement.wallrunning)
         {
-            jumpCount = 0;
+            remainingJumps = extraJumps;
         }
 
-        // Update UI based on jump status
+        // Update UI based on remaining jumps
         UpdateJumpUI();
     }
 
-    void PerformJump()
+    void PerformDoubleJump()
     {
-        // Reset the Y velocity for a consistent jump height
+        // Reset Y velocity for consistent jump height
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
-        // Apply jump force
-        float jumpForce = (jumpCount == 0) ? playerMovement.jumpForce : doubleJumpForce;
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        // Apply the double jump force
+        rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
     }
 
-    // Update Jump UI based on current jump status
     private void UpdateJumpUI()
     {
-        // Enable the DoubleJumpUI if the player can double jump (has not used the second jump yet)
-        if (jumpCount < maxJumps)
+        // Enable the blackout UI if no extra jumps are left
+        if (remainingJumps <= 0)
         {
-            blackoutUI.SetActive(false);
+            if (blackoutUI != null) blackoutUI.SetActive(true);
         }
-        // Enable BlackoutUI after the second jump is used
         else
         {
-            blackoutUI.SetActive(true);
+            if (blackoutUI != null) blackoutUI.SetActive(false);
         }
     }
 }
