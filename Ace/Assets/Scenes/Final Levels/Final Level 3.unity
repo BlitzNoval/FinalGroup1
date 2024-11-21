@@ -8625,6 +8625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 629668773}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!43 &182106140
 Mesh:
   m_ObjectHideFlags: 0
@@ -8914,6 +8915,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 100, y: 100, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &228158655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11032,6 +11035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 1232467998}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!43 &277236350
 Mesh:
   m_ObjectHideFlags: 0
@@ -31185,6 +31189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 1922603808}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!64 &689418523
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32200,6 +32205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 80
   jumpDirection: {x: 0, y: 80, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &701107003
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -40883,6 +40890,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 30
   jumpDirection: {x: 0, y: 30, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!65 &841520976
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51590,6 +51599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: -100, y: 100, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1109391368
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -51958,6 +51969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1110872655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -52844,6 +52857,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1123692995
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -55428,6 +55443,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1161113357
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -58579,6 +58596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 1064602288}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!65 &1227735393
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61455,6 +61473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 376462241}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!65 &1354036149
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61767,6 +61786,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1368927560
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -64762,6 +64783,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1410182430
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -75118,6 +75141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 0, y: 100, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1600020580
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -78663,6 +78688,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 30
   jumpDirection: {x: 0, y: 30, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!43 &1688242785
 Mesh:
   m_ObjectHideFlags: 0
@@ -81359,6 +81386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 2025660791}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!65 &1759102972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85550,6 +85578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 28184393}
   speedrunTimer: {fileID: 1517782089}
+  checkpointSound: {fileID: 0}
 --- !u!1001 &1833429486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -86091,6 +86120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 20
   jumpDirection: {x: 0, y: 20, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &1845507647
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94873,6 +94904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 0}
   speedrunTimer: {fileID: 0}
+  checkpointSound: {fileID: 0}
 --- !u!65 &1994768399
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95967,6 +95999,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 100
   jumpDirection: {x: 0, y: 100, z: 0}
+  idleGlowEffect: {fileID: 0}
+  bounceEffect: {fileID: 0}
 --- !u!64 &2040422264
 MeshCollider:
   m_ObjectHideFlags: 0

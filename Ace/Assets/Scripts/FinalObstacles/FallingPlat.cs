@@ -17,7 +17,11 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
     public bool useGlowEffect = false; // Enable pulsating glow effect
     public float glowFrequency = 2.0f; // Frequency of the glow pulsation
     public AudioClip disappearSound; // Sound effect for disappearing
+    public AudioClip countdownBeepSound; // Countdown beep sound
     public ParticleSystem disappearParticles; // Optional particle system for disappearing
+
+    [Header("Material Settings")]
+    public Material baseMaterial; // Original material for the block
 
     private Vector3 initialPosition; // Original position of the block
     private Quaternion initialRotation; // Original rotation of the block
@@ -38,12 +42,14 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
         blockRenderer = GetComponent<Renderer>();
         blockCollider = GetComponent<Collider>();
 
-        // Add AudioSource if disappearing sound is provided
-        if (disappearSound != null)
+        // Assign base material if it's not null
+        if (baseMaterial != null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = disappearSound;
+            blockRenderer.material = baseMaterial;
         }
+
+        // Add AudioSource if not already present
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,6 +63,12 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
 
     private IEnumerator DisappearSequence()
     {
+        // Play countdown beeps
+        if (countdownBeepSound != null)
+        {
+            StartCoroutine(PlayCountdownBeep(disappearDelay));
+        }
+
         // Trigger feedback effects
         if (useColorChange)
         {
@@ -79,7 +91,7 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
         // Play disappearing feedback
         if (disappearSound != null && audioSource != null)
         {
-            audioSource.Play();
+            audioSource.PlayOneShot(disappearSound);
         }
 
         if (disappearParticles != null)
@@ -95,7 +107,22 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
         if (enableReset)
         {
             yield return new WaitForSeconds(resetDelay);
-            ResetBlock();
+            StartCoroutine(RespawnBlock());
+        }
+    }
+
+    private IEnumerator PlayCountdownBeep(float duration)
+    {
+        int beepCount = Mathf.FloorToInt(duration); // One beep per second
+        float interval = duration / beepCount;
+
+        for (int i = 0; i < beepCount; i++)
+        {
+            if (countdownBeepSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(countdownBeepSound);
+            }
+            yield return new WaitForSeconds(interval);
         }
     }
 
@@ -144,21 +171,33 @@ public class DisappearingBlockWithFeedback : MonoBehaviour
         mat.SetColor("_EmissionColor", Color.black); // Turn off glow after effect
     }
 
-    private void ResetBlock()
+    private IEnumerator RespawnBlock()
     {
-        // Reset block's visibility, collider, and properties
+        // Reset block's properties gradually
         blockRenderer.enabled = true;
         blockCollider.enabled = true;
         transform.position = initialPosition;
         transform.rotation = initialRotation;
-        transform.localScale = initialScale;
 
-        // Reset material color if color change was used
-        if (useColorChange)
+        // Reset material to base material
+        if (baseMaterial != null)
         {
-            blockRenderer.material.color = Color.white; // Assuming white as the original color
+            blockRenderer.material = baseMaterial;
         }
 
+        float elapsedTime = 0f;
+        Vector3 smallScale = initialScale * 0.1f;
+        transform.localScale = smallScale;
+
+        while (elapsedTime < 1f)
+        {
+            float t = elapsedTime / 1f;
+            transform.localScale = Vector3.Lerp(smallScale, initialScale, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = initialScale;
         isDisappearing = false; // Allow the block to disappear again
     }
 }
