@@ -7,49 +7,80 @@ public class AbilityUpgradeManager : MonoBehaviour
 {
     public AbilityAmount abilityAmountScript;
     public GameObject notice;
+    public GameObject dashNotice;
+    public GameObject jumpNotice;
+    public GameObject timeNotice;
     public AudioClip successSound;
     public AudioClip failureSound;
     public AudioSource audioSource;
 
     // UI Elements
-    public GameObject jumpUpgradeUI;          // UI for the Jump Upgrade
-    public GameObject doubleJumpUI;           // UI for the upgraded Double Jump
-    public GameObject dashUI;          // UI for the Dash Upgrade
-    public GameObject dashUpgradedUI;         // UI for the upgraded Dash
-    public GameObject timeSlowUI;      // UI for the Time Slow Upgrade
-    public GameObject timeStopAllUpgradeUI;   // UI for the upgraded Time Slow
+    public GameObject jumpUpgradeUI;
+    public GameObject doubleJumpUI;
+    public GameObject dashUI;
+    public GameObject dashUpgradedUI;
+    public GameObject timeSlowUI;
+    public GameObject timeStopAllUpgradeUI;
+
+    private GameObject currentUpgrade;
+    private string currentTag;
+    private int currentCost;
+    private System.Type enableScript;
+    private System.Type disableScript;
+    private GameObject currentUI;
+    private GameObject upgradedUI;
 
     void Start()
     {
-        // Initially enable the UI for the available abilities
+        // Ensure that the notices and UI elements persist between scenes
+
+
         doubleJumpUI.SetActive(true);
         dashUI.SetActive(true);
         timeSlowUI.SetActive(true);
 
-        // Initially disable the UI for the upgraded abilities
         jumpUpgradeUI.SetActive(false);
         dashUpgradedUI.SetActive(false);
         timeStopAllUpgradeUI.SetActive(false);
+
+        notice.SetActive(false);
+        jumpNotice.SetActive(false);
+        dashNotice.SetActive(false);
+        timeNotice.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (currentUpgrade != null && Input.GetKeyDown(KeyCode.E))
+        {
+            ProcessUpgrade(currentCost, enableScript, disableScript, currentUpgrade, currentUI, upgradedUI);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("JumpUpgrade"))
         {
-            ProcessUpgrade(1, typeof(DoubleJumpUpgraded), typeof(DoubleJump), other.gameObject, jumpUpgradeUI, doubleJumpUI);
+            ShowNotice(jumpNotice);
+            SetUpgradeDetails(1, typeof(DoubleJumpUpgraded), typeof(DoubleJump), other.gameObject, jumpUpgradeUI, doubleJumpUI, "JumpUpgrade");
         }
         else if (other.CompareTag("DashUpgrade"))
         {
-            ProcessUpgrade(3, typeof(DashUpgrade), typeof(Dash), other.gameObject, dashUI, dashUpgradedUI);
+            ShowNotice(dashNotice);
+            SetUpgradeDetails(3, typeof(DashUpgrade), typeof(Dash), other.gameObject, dashUI, dashUpgradedUI, "DashUpgrade");
         }
         else if (other.CompareTag("TimeSlowUpgrade"))
         {
-            ProcessUpgrade(3, typeof(TimeStopAllUpgrade), typeof(TimeSlow), other.gameObject, timeSlowUI, timeStopAllUpgradeUI);
+            ShowNotice(timeNotice);
+            SetUpgradeDetails(3, typeof(TimeStopAllUpgrade), typeof(TimeSlow), other.gameObject, timeSlowUI, timeStopAllUpgradeUI, "TimeSlowUpgrade");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // Check if the tag is null or empty
+        if (string.IsNullOrEmpty(other.tag)) return; // Exit if the tag is not set or empty
+
         // Hide the notice when the player leaves the upgrade collider
         if (notice != null && (other.CompareTag("JumpUpgrade") || other.CompareTag("DashUpgrade") || other.CompareTag("TimeSlowUpgrade")))
         {
@@ -57,46 +88,76 @@ public class AbilityUpgradeManager : MonoBehaviour
         }
     }
 
+    private void ShowNotice(GameObject noticeObject)
+    {
+        HideAllNotices();
+        if (noticeObject != null)
+        {
+            noticeObject.SetActive(true);
+        }
+    }
+
+    private void HideAllNotices()
+    {
+        notice.SetActive(false);
+        jumpNotice.SetActive(false);
+        dashNotice.SetActive(false);
+        timeNotice.SetActive(false);
+    }
+
+    private void SetUpgradeDetails(int cost, System.Type enable, System.Type disable, GameObject upgradeObject, GameObject ui, GameObject upgradedUi, string tag)
+    {
+        currentCost = cost;
+        enableScript = enable;
+        disableScript = disable;
+        currentUpgrade = upgradeObject;
+        currentUI = ui;
+        upgradedUI = upgradedUi;
+        currentTag = tag;
+    }
+
     private void ProcessUpgrade(int cost, System.Type enableScript, System.Type disableScript, GameObject upgradeObject, GameObject currentUI, GameObject upgradedUI)
     {
         if (abilityAmountScript.SpendOrbs(cost))
         {
-            // Play success sound
             PlaySound(successSound);
 
-            // Enable and disable the corresponding scripts
             var enableComponent = GetComponent(enableScript) as MonoBehaviour;
             if (enableComponent != null) enableComponent.enabled = true;
 
             var disableComponent = GetComponent(disableScript) as MonoBehaviour;
             if (disableComponent != null) disableComponent.enabled = false;
 
-            // Swap the UI activation logic
-            if (upgradedUI != null)
-            {
-                upgradedUI.SetActive(false); // Disable the upgraded UI
-                Debug.Log($"Disabled UI: {upgradedUI.name}");
-            }
+            if (upgradedUI != null) upgradedUI.SetActive(false);
+            if (currentUI != null) currentUI.SetActive(true);
 
-            if (currentUI != null)
-            {
-                currentUI.SetActive(true); // Enable the initial ability's UI
-                Debug.Log($"Enabled UI: {currentUI.name}");
-            }
-
-            // Destroy the upgrade object
             Destroy(upgradeObject);
-
-            // Save updated orb amount and other relevant data
-            abilityAmountScript.SaveOrbs(); // This will update PlayerPrefs for the orb amount
-            Debug.Log("Orb amount saved to PlayerPrefs after upgrade.");
+            abilityAmountScript.SaveOrbs();
         }
         else
         {
-            // Play failure sound and display notice
             PlaySound(failureSound);
-            if (notice != null) notice.SetActive(true);
+            if (currentTag == "JumpUpgrade")
+                StartCoroutine(ShowNoticesTemporarily(jumpNotice));
+            else if (currentTag == "DashUpgrade")
+                StartCoroutine(ShowNoticesTemporarily(dashNotice));
+            else if (currentTag == "TimeSlowUpgrade")
+                StartCoroutine(ShowNoticesTemporarily(timeNotice));
         }
+    }
+
+    private IEnumerator ShowNoticesTemporarily(GameObject specificNotice)
+    {
+        // Enable both the general and specific notices
+        if (notice != null) notice.SetActive(true);
+        if (specificNotice != null) specificNotice.SetActive(true);
+
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(1f);
+
+        // Disable both notices
+        if (notice != null) notice.SetActive(false);
+        if (specificNotice != null) specificNotice.SetActive(false);
     }
 
     private void PlaySound(AudioClip clip)

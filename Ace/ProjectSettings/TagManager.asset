@@ -17,6 +17,7 @@ TagManager:
   - JumpUpgrade
   - TimeSlowUpgrade
   - EndBlock
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

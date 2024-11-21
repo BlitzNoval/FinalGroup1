@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Ace/Assets/MobileWaterShader_EKV/Documentation/MobileWaterShader_EKV_Manual_ENG.pdf.meta
+guid: 41a2c888636f2d94b8a6df5eb716d640
+========
 guid: cad877e140aa21f47afc0461a105cf69
 folderAsset: yes
+>>>>>>>> Test:Ace/Assets/Scenes/Final Levels/Final Level 1_Profiles.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
