@@ -15734,68 +15734,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8420651816542619034, guid: e5c358a373d2fa840a2b94c42d8966af, type: 3}
   m_PrefabInstance: {fileID: 330038667}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &330989838
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -76.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -526.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 366
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4778419933658165551, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6847640674401438770, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
---- !u!223 &330989839 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 9116057111437561451, guid: 49b5a1e8c35f4c846b0bed763d87a841, type: 3}
-  m_PrefabInstance: {fileID: 330989838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &335047928
 Mesh:
   m_ObjectHideFlags: 0
@@ -54002,6 +53940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853acb79edda73c45a190d83953b31f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuSceneIndex: 8
 --- !u!114 &1070714980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67133,16 +67072,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1070714978}
-        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: ChangeToScene
-        m_Mode: 5
+      - m_Target: {fileID: 1070714979}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: pauseScreen
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1365025428
@@ -80133,7 +80072,7 @@ MonoBehaviour:
   speedrunTimer: {fileID: 1517782089}
   endStatsCanvas: {fileID: 670301709}
   otherCanvas1: {fileID: 1293229136}
-  otherCanvas2: {fileID: 330989839}
+  otherCanvas2: {fileID: 0}
 --- !u!1001 &1570171578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107823,7 +107762,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330989838}
   - {fileID: 2005005750}
   - {fileID: 1090465182}
   - {fileID: 56328641}
