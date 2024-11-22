@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorSceneLoader : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class DoorSceneLoader : MonoBehaviour
         }
 
         // Before loading, check if the next scene index is valid
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        if (nextSceneIndex <SceneManager.sceneCountInBuildSettings)
         {
             // Load the next scene asynchronously
             SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Single).completed += (operation) =>
