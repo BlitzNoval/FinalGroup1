@@ -18,6 +18,7 @@ TagManager:
   - TimeSlowUpgrade
   - EndBlock
   - SpawnPoint
+  - Music
   layers:
   - Default
   - TransparentFX
