@@ -15,11 +15,22 @@ public class DoubleJump : MonoBehaviour
     // UI elements
     public GameObject blackoutUI; // UI to indicate the double jump is unavailable
 
-    void Start()
+    // Particle effects
+    [Header("Double Jump Feedback")]
+    public GameObject doubleJumpParticleEffect1; // First particle effect
+    public GameObject doubleJumpParticleEffect2; // Second particle effect
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
         remainingJumps = extraJumps; // Initialize remaining jumps to the allowed extra jumps
+
+        // Disable both particle effects at the start
+        if (doubleJumpParticleEffect1 != null)
+            doubleJumpParticleEffect1.SetActive(false);
+        if (doubleJumpParticleEffect2 != null)
+            doubleJumpParticleEffect2.SetActive(false);
     }
 
     void Update()
@@ -48,6 +59,44 @@ public class DoubleJump : MonoBehaviour
 
         // Apply the double jump force
         rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+
+        // Enable the particle effects for 1 second
+        EnableDoubleJumpParticles();
+    }
+
+    private void EnableDoubleJumpParticles()
+    {
+        // Enable the first particle effect
+        if (doubleJumpParticleEffect1 != null)
+        {
+            doubleJumpParticleEffect1.SetActive(true);
+        }
+
+        // Enable the second particle effect
+        if (doubleJumpParticleEffect2 != null)
+        {
+            doubleJumpParticleEffect2.SetActive(true);
+        }
+
+        // Disable the particle effects after 1 second
+        StartCoroutine(DisableDoubleJumpParticles());
+    }
+
+    private IEnumerator DisableDoubleJumpParticles()
+    {
+        // Wait for 1 second
+        yield return new WaitForSeconds(0.5f);
+
+        // Disable the particle effects
+        if (doubleJumpParticleEffect1 != null)
+        {
+            doubleJumpParticleEffect1.SetActive(false);
+        }
+
+        if (doubleJumpParticleEffect2 != null)
+        {
+            doubleJumpParticleEffect2.SetActive(false);
+        }
     }
 
     private void UpdateJumpUI()
