@@ -7,8 +7,9 @@ public class ProceduralGlassShatter : MonoBehaviour
     [Header("Shatter Settings")]
     [SerializeField] private int fragmentCount = 15;
     [SerializeField] private float shatterForce = 10f;
-    [SerializeField] private float fragmentScale = 0.98f; // Slightly smaller to prevent z-fighting
+    [SerializeField] private float fragmentScale = 0.98f;
     [SerializeField] private Material glassMaterial;
+    [SerializeField] private float triggerThreshold = 5f; // Minimum velocity needed to break glass
     
     [Header("Audio")]
     [SerializeField] private AudioClip shatterSound;
@@ -22,16 +23,48 @@ public class ProceduralGlassShatter : MonoBehaviour
         // Cache the original mesh
         originalMesh = GetComponent<MeshFilter>().mesh;
         glassMaterial = GetComponent<MeshRenderer>().material;
-    }
-    
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !hasShattered)
+        
+        // Replace MeshCollider with a trigger collider
+        Destroy(GetComponent<MeshCollider>());
+        BoxCollider trigger = gameObject.AddComponent<BoxCollider>();
+        trigger.isTrigger = true;
+        
+        // Make the glass material not interact with physics
+        if (GetComponent<Rigidbody>())
         {
-            ShatterAtPoint(collision.contacts[0].point);
+            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
     
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !hasShattered)
+        {
+            // Calculate impact velocity
+            Rigidbody playerRb = other.GetComponent<Rigidbody>();
+            float impactVelocity = playerRb != null ? playerRb.velocity.magnitude : 0f;
+            
+            // If player is moving fast enough or we don't care about velocity
+            if (impactVelocity >= triggerThreshold || triggerThreshold <= 0)
+            {
+                // Get the closest point on the glass to the player
+                Vector3 impactPoint = transform.position;
+                if (other is CapsuleCollider capsule)
+                {
+                    // For character controllers/capsule colliders
+                    impactPoint = Physics.ClosestPoint(other.transform.position, GetComponent<Collider>(), transform.position, transform.rotation);
+                }
+                else
+                {
+                    // For other collider types
+                    impactPoint = other.ClosestPoint(transform.position);
+                }
+                
+                ShatterAtPoint(impactPoint);
+            }
+        }
+    }
+   // Rest of the methods remain the same
     private void ShatterAtPoint(Vector3 impactPoint)
     {
         hasShattered = true;
@@ -51,9 +84,19 @@ public class ProceduralGlassShatter : MonoBehaviour
             AudioSource.PlayClipAtPoint(shatterSound, transform.position);
         }
         
-        // Disable original object
+        // Disable original object immediately
+        GetComponent<Collider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        
+        // Delay the full deactivation slightly to ensure sound plays
+        Invoke("DisableObject", 0.1f);
+    }
+    
+    private void DisableObject()
+    {
         gameObject.SetActive(false);
     }
+    
     
     private void GenerateShatterPoints(Vector3 impactPoint)
     {
