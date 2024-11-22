@@ -8,11 +8,11 @@ public class Dash : MonoBehaviour
     [SerializeField] private float dashDistance = 100f;
     [SerializeField] private float dashSpeed = 50f;
     [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private int maxDashCount = 3; // the number of maximum dashes
-    [SerializeField] private float dashRechargeTime = 5f; // time to fully recharge dashes
+    [SerializeField] private int maxDashCount = 3;
+    [SerializeField] private float dashRechargeTime = 5f;
 
-    private bool readyToDash = true; // checks if the dash is ready
-    private int currentDashCount; // check on the amount of dashes available
+    private bool readyToDash = true;
+    private int currentDashCount;
 
     public KeyCode dashKey = KeyCode.LeftShift;
 
@@ -21,8 +21,14 @@ public class Dash : MonoBehaviour
     private Rigidbody rb;
 
     // UI elements
-    public GameObject dashUI;  // UI to show when dashing is available
-    public GameObject blackoutUI; // UI to show when dashing is unavailable
+    public GameObject dashUI;
+    public GameObject blackoutUI;
+
+    // Audio and Particle
+    [Header("Dash Feedback")]
+    public AudioClip dashSound; // Drag the dash sound clip here
+    private AudioSource audioSource;
+    public GameObject dashParticleEffect; // Drag your particle effect here
 
     private void Start()
     {
@@ -37,36 +43,78 @@ public class Dash : MonoBehaviour
 
         currentDashCount = maxDashCount;
 
+        // Ensure AudioSource is attached and ready
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>(); // Automatically add AudioSource if missing
+        }
+
+        // Ensure the particle effect is disabled at the start
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(false); // Disable the particle effect initially
+        }
+        else
+        {
+            Debug.LogError("Dash particle effect is not assigned in the Inspector!");
+        }
+
         // Ensure UI is updated at the start
         UpdateDashUI();
     }
 
     private void Update()
     {
-        // Check if dash is ready, dashes are available, not wallrunning, and dash key is pressed
+        // Check if the dash key is pressed and dash is ready
         if (readyToDash && currentDashCount > 0 && !playerMovement.wallrunning && Input.GetKeyDown(dashKey))
         {
             StartCoroutine(PerformDash());
         }
 
-        // Update UI each frame
         UpdateDashUI();
     }
 
     private IEnumerator PerformDash()
     {
-        readyToDash = false; // Dash is set to being not ready
-        currentDashCount--; // Decrease the count for the dash
+        readyToDash = false;
+        currentDashCount--;
 
         // Dash direction
         Vector3 dashDirection = mainCamera.transform.forward;
-        dashDirection.y = 0; // Keep the direction of the dash horizontal
+        dashDirection.y = 0; // Keep the dash horizontal
         dashDirection.Normalize();
 
         rb.AddForce(dashDirection * dashSpeed, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(dashCooldown);
-        readyToDash = true; // Reset the dash cooldown
+        // Play the dash sound
+        if (dashSound != null)
+        {
+            audioSource.PlayOneShot(dashSound);
+        }
+        else
+        {
+            Debug.LogError("Dash sound is not assigned in the Inspector!");
+        }
+
+        // Enable the particle effect immediately when the dash key is pressed
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(true); // Immediately enable
+        }
+
+        // Wait for 0.5 seconds before disabling the particle effect
+        yield return new WaitForSeconds(0.5f);
+
+        // Disable the particle effect after 0.5 seconds
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(false); // Disable the particle effect
+        }
+
+        yield return new WaitForSeconds(dashCooldown); // Wait for cooldown
+
+        readyToDash = true;
 
         if (currentDashCount <= 0)
         {
@@ -77,24 +125,20 @@ public class Dash : MonoBehaviour
     private IEnumerator RechargeDashes()
     {
         yield return new WaitForSeconds(dashRechargeTime);
-        currentDashCount = maxDashCount; // Reset the dash count to max
+        currentDashCount = maxDashCount;
     }
 
-    // Update Dash UI based on current dash status
     private void UpdateDashUI()
     {
-        // Always show DashUI
         dashUI.SetActive(true);
 
-        // Show BlackoutUI only when dashing is unavailable
         if (currentDashCount <= 0 || !readyToDash)
         {
-            blackoutUI.SetActive(true); // Show BlackoutUI if dashes are unavailable
+            blackoutUI.SetActive(true);
         }
         else
         {
-            blackoutUI.SetActive(false); // Hide BlackoutUI if dashes are available
+            blackoutUI.SetActive(false);
         }
     }
 }
-

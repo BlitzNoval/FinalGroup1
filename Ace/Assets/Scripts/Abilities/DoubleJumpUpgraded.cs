@@ -24,11 +24,22 @@ public class DoubleJumpUpgraded : MonoBehaviour
     public GameObject chargeBar; // UI for charge progress
     public GameObject blackoutUI; // UI to show when jumps are unavailable
 
+    // Particle Effects
+    [Header("Double Jump Feedback")]
+    public GameObject doubleJumpParticleEffect1; // First particle effect
+    public GameObject doubleJumpParticleEffect2; // Second particle effect
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
         remainingJumps = extraJumps; // Initialize remaining jumps
+
+        // Disable particles at the start
+        if (doubleJumpParticleEffect1 != null)
+            doubleJumpParticleEffect1.SetActive(false);
+        if (doubleJumpParticleEffect2 != null)
+            doubleJumpParticleEffect2.SetActive(false);
     }
 
     void Update()
@@ -41,13 +52,16 @@ public class DoubleJumpUpgraded : MonoBehaviour
             {
                 PerformSuperJump();
                 hasSuperJumped = true;
+                EnableParticles(1.5f); // Enable particles for 1.5 seconds for super jump
                 EnableBlackoutUI();
                 ResetChargeBar(); // Reset charge bar after using the charged jump
             }
-            else if (remainingJumps > 0 && !playerMovement.wallrunning && !playerMovement.grounded && !hasSuperJumped)
+            else if (remainingJumps > 0 && !playerMovement.wallrunning && !playerMovement.grounded)
             {
                 PerformDoubleJump();
                 remainingJumps--; // Consume one extra jump
+                EnableParticles(0.5f); // Enable particles for 0.5 seconds for normal double jump
+
                 if (remainingJumps <= 0) EnableBlackoutUI();
             }
         }
@@ -125,6 +139,29 @@ public class DoubleJumpUpgraded : MonoBehaviour
         // Reset jump state after super jump
         remainingJumps = 0;
         canSuperJump = false;
+    }
+
+    void EnableParticles(float duration)
+    {
+        if (doubleJumpParticleEffect1 != null)
+            doubleJumpParticleEffect1.SetActive(true);
+
+        if (doubleJumpParticleEffect2 != null)
+            doubleJumpParticleEffect2.SetActive(true);
+
+        // Disable particles after the specified duration
+        StartCoroutine(DisableParticlesAfterTime(duration));
+    }
+
+    private IEnumerator DisableParticlesAfterTime(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        if (doubleJumpParticleEffect1 != null)
+            doubleJumpParticleEffect1.SetActive(false);
+
+        if (doubleJumpParticleEffect2 != null)
+            doubleJumpParticleEffect2.SetActive(false);
     }
 
     void ResetJumpState()

@@ -22,6 +22,11 @@ public class DashUpgrade : MonoBehaviour
     public GameObject blackoutUI; // UI to show when dashes are unavailable
     public TextMeshProUGUI dashCountText; // TextMeshPro to display current dashes
 
+    // Dash feedback (particle effect and sound)
+    public GameObject dashParticleEffect; // Drag your particle effect here
+    public AudioClip dashSound; // Assign dash sound here
+    private AudioSource audioSource;
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -32,11 +37,28 @@ public class DashUpgrade : MonoBehaviour
             Debug.LogError("Rigidbody component missing from this GameObject");
         }
 
+        // Ensure audioSource is attached and setup
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing from this GameObject");
+        }
+
         currentStamina = maxStamina;
 
         // Initial UI setup
         UpdateDashUI();
         blackoutUI.SetActive(false); // Start with blackout hidden
+
+        // Ensure the particle effect is disabled at the start
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(false); // Disable the particle effect initially
+        }
+        else
+        {
+            Debug.LogError("Dash particle effect is not assigned in the Inspector!");
+        }
     }
 
     private void Update()
@@ -44,16 +66,28 @@ public class DashUpgrade : MonoBehaviour
         // Check if dash key is pressed and stamina is available
         if (currentStamina > 0 && Input.GetKeyDown(dashKey))
         {
-            PerformDash();
+            StartCoroutine(PerformDash());
         }
 
         // Update the UI every frame
         UpdateDashUI();
     }
 
-    private void PerformDash()
+    private IEnumerator PerformDash()
     {
         currentStamina--; // Consume one stamina point
+
+        // Enable the particle effect immediately when the dash key is pressed
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(true); // Immediately enable the particle effect
+        }
+
+        // Play the dash sound immediately when the dash key is pressed
+        if (audioSource != null && dashSound != null)
+        {
+            audioSource.PlayOneShot(dashSound); // Play the dash sound
+        }
 
         // Get the camera's forward direction
         Vector3 dashDirection = mainCamera.transform.forward;
@@ -67,6 +101,15 @@ public class DashUpgrade : MonoBehaviour
 
         // Apply force
         rb.AddForce(finalDashDirection * dashSpeed, ForceMode.Impulse);
+
+        // Wait for 0.3 seconds before disabling the particle effect
+        yield return new WaitForSeconds(0.3f); // Shorter time before disabling particles again
+
+        // Disable the particle effect after 0.3 seconds
+        if (dashParticleEffect != null)
+        {
+            dashParticleEffect.SetActive(false); // Disable the particle effect
+        }
 
         // Start recharging stamina if below the maximum and not already recharging
         if (currentStamina < maxStamina && !isRecharging)
